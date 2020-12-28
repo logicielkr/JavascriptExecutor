@@ -1,0 +1,73 @@
+table#javascript th {
+	width:120px;
+}
+table#javascript td.source textarea {
+	height: 80px;
+}
+table#javascript td.contents textarea {
+	height: 250px;
+}
+table#javascript td.results textarea
+{
+	height: 150px;
+	background-color:#F3F3F3;
+}
+
+table#javascript th.encrypted,
+table#javascript td.encrypted,
+table#javascript th.autosave,
+table#javascript td.autosave,
+form.delete button
+{
+	display:none;
+}
+
+table#javascript th.encrypted.show,
+table#javascript td.encrypted.show,
+table#javascript th.autosave.show,
+table#javascript td.autosave.show
+{
+	display:table-cell;
+}
+td.execute {
+	width:60px;
+}
+
+@media only screen and (max-width: 600px) {
+	table#javascript th.title,
+	table#javascript th.source
+	{
+		display:none;
+	}
+	table#javascript td.title {
+		width:100%;
+		background-color:#f3f3f3;
+	}
+	table#javascript td,
+	table#javascript th
+	{
+		display:block;
+	}
+	table#javascript th.marked,
+	table#javascript th.history,
+	table#javascript th.encrypted.show,
+	table#javascript th.autosave.show
+	{
+		width:130px;
+		display:block;
+		float:left;
+		clear:both;
+	}
+	table#javascript td.marked,
+	table#javascript td.history,
+	table#javascript td.encrypted.show,
+	table#javascript td.autosave.show
+	{
+		display:block;
+	}
+	table#javascript td.encrypted.show,
+	table#javascript td.autosave.show
+	{
+		display:block;
+	}
+}
