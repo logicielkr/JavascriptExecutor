@@ -50,11 +50,16 @@ table#javascript_history td.contents2
 }
 
 table#javascript_history td.contents,
-table#javascript_history td.source,
 table#javascript_history td.results
 {
 	white-space:pre-wrap;
 	height: 150px;
+	display:none;
+}
+table#javascript_history td.source
+{
+	white-space:pre-wrap;
+	height: 50px;
 	display:none;
 }
 table#javascript_history th {
