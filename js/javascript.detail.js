@@ -80,7 +80,7 @@ function mark() {
 		smartypants: false,
 		xhtml: false
 	});
-	var text = marked("```javascript\n" + selectedContents.text() + "\n```");
+	var text = marked.parse("```javascript\n" + selectedContents.text() + "\n```");
 	selectedContents.hide();
 	selectedContents2.show();
 	selectedContents2.html(text);
