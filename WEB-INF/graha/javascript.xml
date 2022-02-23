@@ -42,7 +42,7 @@ isEncrypted = true;
 						, case when encrypted = true then title else '' end as encrypted_title
 						, to_char(update_date, 'YYYY-MM-DD HH24:MI:SS') as update_date
 						, encrypted
-					from javascript
+					from javascript.javascript
 					where insert_id = ?
 					and parent_id is null
 <tile cond="${param.search} isNotEmpty">
@@ -51,7 +51,7 @@ isEncrypted = true;
 					order by javascript_id desc
 				</sql>
 				<sql_cnt>
-					select count(*) from javascript where insert_id = ? and parent_id is null
+					select count(*) from javascript.javascript where insert_id = ? and parent_id is null
 <tile cond="${param.search} isNotEmpty">
 					and (title like '%' || ? || '%' or contents like '%' || ? || '%')
 </tile>
@@ -154,7 +154,7 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 		<processors>
 			<processor type="query" after="true" method="POST" cond="${param.javascript_history_id} isNotEmpty">
 				<sql>
-					delete from javascript_history where javascript_history_id = ? and insert_id = ?
+					delete from javascript.javascript_history where javascript_history_id = ? and insert_id = ?
 				</sql>
 				<params>
 					<param name="javascript_history_id" datatype="int" value="param.javascript_history_id" default="-1" />
@@ -163,7 +163,7 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 			</processor>
 			<processor type="query" before="true" method="POST" cond="${prop.savehistory} equals 'yy'">
 				<sql>
-					insert into javascript_history (
+					insert into javascript.javascript_history (
 						javascript_history_id,
 						title,
 						source,
@@ -195,12 +195,12 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 						update_date,
 						update_id,
 						update_ip
-					from javascript where javascript_id = ?
+					from javascript.javascript where javascript_id = ?
 					and (md5(trim(title)) != md5(trim(?)) or md5(trim(source)) != md5(trim(?)) or md5(trim(contents)) != md5(trim(?)))
 					and insert_id = ?
 				</sql>
 				<params>
-					<param name="javascript_history_id" datatype="int" value="sequence.nextval('javascript_history$javascript_history_id')" default="-1" />
+					<param name="javascript_history_id" datatype="int" value="sequence.nextval('javascript.javascript_history$javascript_history_id')" default="-1" />
 					<param name="javascript_id" datatype="int" value="param.javascript_id" default="-1" />
 					<param name="title" datatype="varchar" value="param.title" />
 					<param name="source" datatype="varchar" value="param.source" />
@@ -210,9 +210,9 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 			</processor>
 			<processor type="query" before="true" method="GET" cond="${param.javascript_id} isNotEmpty">
 				<sql>
-					delete from javascript_history where javascript_id = ? and insert_id = ?
+					delete from javascript.javascript_history where javascript_id = ? and insert_id = ?
 					and exists (
-						select * from javascript where javascript.javascript_id = ? and javascript.insert_id = ?
+						select * from javascript.javascript where javascript.javascript_id = ? and javascript.insert_id = ?
 						and md5(javascript.title) = md5(javascript_history.title)
 						and md5(javascript.source) = md5(javascript_history.source)
 						and md5(javascript.contents) = md5(javascript_history.contents)
@@ -230,8 +230,8 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 			<param name="title" not-null="true" msg="제목은 필수 항목입니다!" />
 		</validation>
 		<tables>
-			<table tableName="javascript" name="javascript" label="Javascript 실행기">
-				<column name="javascript_id" value="param.javascript_id" datatype="int" primary="true" insert="sequence.nextval('javascript$javascript_id')" />
+			<table tableName="javascript.javascript" name="javascript" label="Javascript 실행기">
+				<column name="javascript_id" value="param.javascript_id" datatype="int" primary="true" insert="sequence.nextval('javascript.javascript$javascript_id')" />
 				<column name="title" value="param.title" datatype="varchar" />
 				<column name="source" value="param.source" datatype="varchar" />
 				<column name="contents" value="param.contents" datatype="varchar" />
@@ -326,8 +326,8 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 		<header>
 		</header>
 		<tables>
-			<table tableName="javascript_history" name="javascript_history" label="Javascript 실행기 이력관리">
-				<column name="javascript_history_id" value="param.javascript_history_id" datatype="int" primary="true" insert="sequence.nextval('javascript_history$javascript_history_id')" />
+			<table tableName="javascript.javascript_history" name="javascript_history" label="Javascript 실행기 이력관리">
+				<column name="javascript_history_id" value="param.javascript_history_id" datatype="int" primary="true" insert="sequence.nextval('javascript.javascript_history$javascript_history_id')" />
 				<column name="title" value="param.title" datatype="varchar" />
 				<column name="source" value="param.source" datatype="varchar" />
 				<column name="contents" value="param.contents" datatype="varchar" />
@@ -459,7 +459,7 @@ isHistoryEncrypted = true;
 						, to_char(insert_date, 'YYYY-MM-DD HH24:MI:SS') as insert_date
 						, encrypted
 						, parent_id
-					from javascript
+					from javascript.javascript
 						where javascript_id = ? and insert_id = ?
 				</sql>
 				<params>
@@ -478,7 +478,7 @@ isHistoryEncrypted = true;
 						, results
 						, to_char(update_date, 'YYYY-MM-DD HH24:MI:SS') as update_date
 						, encrypted
-					from javascript_history
+					from javascript.javascript_history
 						where javascript_id = ? and insert_id = ?
 						and autosave = false
 						order by javascript_history_id desc
@@ -497,7 +497,7 @@ isHistoryEncrypted = true;
 						, to_char(update_date, 'YYYY-MM-DD HH24:MI:SS') as update_date
 						, encrypted
 						, parent_id
-					from javascript
+					from javascript.javascript
 						where parent_id = ?
 							and insert_id = ?
 						order by javascript_id desc
@@ -623,7 +623,7 @@ isHistoryEncrypted = true;
 						, results
 </tile>
 						, encrypted
-					from javascript_history
+					from javascript.javascript_history
 					where autosave = true
 						and insert_id = ?
 <tile cond="${param.javascript_id} isEmpty">
@@ -656,7 +656,7 @@ isHistoryEncrypted = true;
 	</query>
 	<query id="delete" funcType="delete" label="Javascript 삭제">
 		<tables>
-			<table tableName="javascript" name="javascript">
+			<table tableName="javascript.javascript" name="javascript">
 				<column name="javascript_id" primary="true" value="param.javascript_id" datatype="int" />
 				<where>
 					<sql>
@@ -667,7 +667,7 @@ isHistoryEncrypted = true;
 					</params>
 				</where>
 			</table>
-			<table tableName="javascript" name="javascript_child">
+			<table tableName="javascript.javascript" name="javascript_child">
 				<column name="parent_id" foreign="true" value="param.javascript_id" datatype="int" />
 				<where>
 					<sql>
@@ -678,7 +678,7 @@ isHistoryEncrypted = true;
 					</params>
 				</where>
 			</table>
-			<table tableName="javascript_history" name="javascript_history">
+			<table tableName="javascript.javascript_history" name="javascript_history">
 				<column name="javascript_id" foreign="true" value="param.javascript_id" datatype="int" />
 				<where>
 					<sql>
@@ -689,7 +689,7 @@ isHistoryEncrypted = true;
 					</params>
 				</where>
 			</table>
-			<table tableName="javascript_history" name="javascript_child_history">
+			<table tableName="javascript.javascript_history" name="javascript_child_history">
 				<column name="parent_id" foreign="true" value="param.javascript_id" datatype="int" />
 				<where>
 					<sql>
@@ -708,7 +708,7 @@ isHistoryEncrypted = true;
 	</query>
 	<query id="deleteAutoSave" funcType="delete" label="자동저장 삭제">
 		<tables>
-			<table tableName="javascript_history" name="javascript_history">
+			<table tableName="javascript.javascript_history" name="javascript_history">
 				<column name="javascript_history_id" foreign="true" value="param.javascript_history_id" datatype="int" />
 				<where>
 					<sql>
