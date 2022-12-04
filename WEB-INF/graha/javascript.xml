@@ -99,6 +99,7 @@ isEncrypted = true;
 						<link path="/javascript/detail">
 							<param name="javascript_id" type="query" value="javascript_id" />
 							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</link>
 					</column>
 					<column label="마지막수정일시" name="update_date" />
@@ -277,10 +278,17 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 		<layout msg="변경사항을 저장하시겠습니까?">
 			<top>
 				<left>
-					<link name="list" label="목록" path="/javascript/list" icon="list" class="material-icons md-18 list" />
+					<link name="list" label="목록" path="/javascript/list" icon="list" class="material-icons md-18 list">
+						<params>
+							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
+						</params>
+					</link>
 					<link name="detail" label="목록" path="/javascript/detail" icon="list" class="material-icons md-18 list">
 						<params>
 							<param name="javascript_id" type="param" value="parent_id" />
+							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 				</left>
@@ -292,6 +300,7 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 							<param name="parent_id" value="parent_id" />
 							<param name="javascript_history_id" value="javascript_history_id" />
 							<param name="page" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 				</right>
@@ -335,11 +344,13 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 		<redirect path="/javascript/detail" cond="${param.parent_id} isEmpty">
 			<param name="javascript_id" type="query" value="javascript_id" />
 			<param name="page" type="param" value="page" />
+			<param name="search" type="param" value="search" />
 		</redirect>
 		<redirect path="/javascript/detail" cond="${param.parent_id} isNotEmpty">
 			 <param name="javascript_id" type="query" value="javascript_id" />
 			 <param name="parent_id" type="query" value="parent_id" />
 			 <param name="page" type="param" value="page" />
+			 <param name="search" type="param" value="search" />
 		</redirect>
 	</query>
 	<query id="autosave" funcType="insert" label="자동저장" auth="${header.method} equals 'POST'">
@@ -372,37 +383,7 @@ javascriptHistoryId = <xsl:value-of select="/document/params[@for='data']/javasc
 				</where>
 			</table>
 		</tables>
-		<layout msg="변경사항을 저장하시겠습니까?">
-			<top>
-			</top>
-			<middle>
-				<tab name="javascript_history" label="Javascript 실행기 이력관리">
-					<row>
-						<column label="제목" name="title" value="title" />
-					</row>
-					<row>
-						<column label="외부소스" name="source" value="source" type="textarea" />
-					</row>
-					<row>
-						<column label="내용" name="contents" value="contents" type="textarea" />
-					</row>
-					<row>
-						<column label="실행결과" name="results" value="results" type="textarea" />
-					</row>
-					<row>
-						<column label="암호화" name="encrypted" value="encrypted" type="checkbox" val="t" />
-					</row>
-					<row>
-						<column label="Javascript ID" name="javascript_id" value="javascript_id" />
-					</row>
-					<row>
-						<column label="자동저장" name="autosave" value="autosave" type="checkbox" val="t" />
-					</row>
-				</tab>
-			</middle>
-			<bottom>
-			</bottom>
-		</layout>
+		<layout />
 		<redirect path="/javascript/list" />
 	</query>
 	<query id="detail" funcType="detail" label="Javascript 실행기(${/document/rows/row/title})">
@@ -542,12 +523,14 @@ isHistoryEncrypted = true;
 					<link name="list" label="목록" path="/javascript/list" icon="list" class="material-icons md-18 list">
 						<params>
 							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 					<link name="detail" label="목록" path="/javascript/detail" icon="list" class="material-icons md-18 list">
 						<params>
 							<param name="javascript_id" type="query" value="parent_id" />
 							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 				</left>
@@ -558,6 +541,7 @@ isHistoryEncrypted = true;
 							<param name="javascript_id" type="query" value="javascript_id" />
 							<param name="parent_id" type="query" value="parent_id" />
 							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 				</right>
@@ -607,6 +591,8 @@ isHistoryEncrypted = true;
 							<link path="/javascript/detail">
 								<param name="javascript_id" type="query" value="javascript_id" />
 								<param name="parent_id" type="query" value="parent_id" />
+								<param name="page" type="param" value="page" />
+								<param name="search" type="param" value="search" />
 							</link>
 						</column>
 						<column label="암호화된 제목" name="encrypted_title" />
@@ -620,6 +606,8 @@ isHistoryEncrypted = true;
 						<params>
 							<param name="javascript_id" type="query" value="javascript_id" />
 							<param name="parent_id" type="query" value="parent_id" />
+							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 				</left>
@@ -628,6 +616,7 @@ isHistoryEncrypted = true;
 						<params>
 							<param name="parent_id" type="query" value="javascript_id" />
 							<param name="page" type="param" value="page" />
+							<param name="search" type="param" value="search" />
 						</params>
 					</link>
 				</right>
@@ -729,9 +718,13 @@ isHistoryEncrypted = true;
 				</where>
 			</table>
 		</tables>
-		<redirect path="/javascript/list" cond="${param.parent_id} isEmpty" />
+		<redirect path="/javascript/list" cond="${param.parent_id} isEmpty">
+			<param name="search" type="param" value="search" />
+		</redirect>
 		<redirect path="/javascript/detail" cond="${param.parent_id} isNotEmpty">
 			 <param name="javascript_id" type="param" value="parent_id" />
+			 <param name="page" type="param" value="page" />
+			 <param name="search" type="param" value="search" />
 		</redirect>
 	</query>
 	<query id="deleteAutoSave" funcType="delete" label="자동저장 삭제">
