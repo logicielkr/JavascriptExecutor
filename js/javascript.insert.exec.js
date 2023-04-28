@@ -135,8 +135,14 @@ function number(value) {
 		return value;
 	}
 }
+function n(value) {
+	return number(value);
+}
 function string(value) {
 	return value.toLocaleString();
+}
+function s(value) {
+	return string(value);
 }
 
 function saveAsNew() {
