@@ -1,4 +1,4 @@
-<project name="Javascript Executor" default="package-tar">
+<project name="build.Javascript Executor">
 	<property name = "base.dir" value = "."/>
 	<property name = "app.name" value = "graha-javascript"/>
 	<property name = "app.version" value = "0.9.0.0"/>
