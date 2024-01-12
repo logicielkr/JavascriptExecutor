@@ -1,0 +1,3 @@
+<project name="Javascript Executor" default="package-tar">
+	<import file="./build.javascript.xml" as="javascript" />
+</project>
