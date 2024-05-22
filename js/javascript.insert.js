@@ -245,7 +245,8 @@ function readyAutoSave(gbn) {
 		$("table#javascript td.source textarea.source").keypress(function () {
 			callAutoSave();
 		});
-		$("table#javascript td.contents textarea.contents").keypress(function () {
+		$("table#javascript td.contents textarea.contents").keypress(function (e) {
+			ctrlenter(e);
 			callAutoSave();
 		});
 		$("table#javascript td.title input.title").keypress(function () {
@@ -256,6 +257,9 @@ function readyAutoSave(gbn) {
 		$("table#javascript td.title input.title").off("keypress");
 		$("table#javascript td.contents textarea.contents").off("keypress");
 		$("table#javascript td.source textarea.source").off("keypress");
+		$("textarea\.contents").keypress(function(e) {
+			ctrlenter(e);
+		});
 	}
 }
 function callAutoSave() {
